@@ -3117,7 +3117,7 @@ static std::vector<int> trace_routed_connection_rr_nodes(const ClusterNetId net_
 
     bool allocated_route_tree_structs = alloc_route_tree_timing_structs(true); //Needed for traceback_to_route_tree
 
-    //Conver the traceback into an easily search-able
+    //Convert the traceback into an easily search-able
     t_rt_node* rt_root = traceback_to_route_tree(net_id);
 
     VTR_ASSERT(rt_root && rt_root->inode == route_ctx.net_rr_terminals[net_id][driver_pin]);
@@ -3133,6 +3133,7 @@ static std::vector<int> trace_routed_connection_rr_nodes(const ClusterNetId net_
     std::reverse(rr_nodes_on_path.begin(), rr_nodes_on_path.end());
 
     if (allocated_route_tree_structs) {
+        free_route_tree(rt_root);
         free_route_tree_timing_structs();
     }
     return rr_nodes_on_path;
